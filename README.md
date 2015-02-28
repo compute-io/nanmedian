@@ -20,34 +20,69 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 var nanmedian = require( 'compute-nanmedian' );
 ```
 
-#### nanmedian( arr[, sorted] )
+#### nanmedian( arr[, options] )
 
-Computes the median of a numeric `array`. If the input `array` is already sorted in __ascending__ order, set the `sorted` flag to `true`.
+Computes the median of an `array` ignoring non-numeric values. For primitive unsorted `arrays`,
 
 ``` javascript
-var unsorted = [ 5, null, 3, 2, 4, null ],
-	sorted = [ null, 2, 3, 4, null, 5 ];
+var unsorted = [ 5, null, 3, 2, 4, null ];
 
 var m1 = nanmedian( unsorted );
 // returns 3.5
+```
 
-var m2 = nanmedian( sorted, true );
+The function accepts two `options`:
+*	`sorted`: `boolean` flag indicating if the input `array` is sorted in __ascending__ order. Default: `false`.
+*	`accessor`: accessor `function` for accessing `array` values
+
+If the input `array` is already sorted in __ascending__ order, set the `sorted` option to `true`.
+
+``` javascript
+var sorted = [ null, 2, 3, 4, null, 5 ];
+
+var m2 = nanmedian( sorted, { 'sorted': true });
 // returns 3.5
 ```
+
+For object `arrays`, provide an accessor `function` for accessing `array` values
+
+``` javascript
+var data = [
+	[1,5],
+	[2,null],
+	[3,3],
+	[4,2],
+	[5,4],
+	[6,null]
+];
+
+function getValue( d ) {
+	return d[ 1 ];
+}
+
+var m3 = nanmedian( data, {
+	'sorted': false,
+	'accessor': getValue
+});
+// returns 3.5
+```
+
+__Note__: if provided an `array` which does not contain any numeric values, the function returns `null`.
+
 
 ## Examples
 
 ``` javascript
+var nanmedian = require( 'compute-nanmedian' );
+
 var data = new Array( 1001 );
-
 for ( var i = 0; i < data.length; i++ ) {
-  if( i % 2 === 0 ){
-    data[ i ] = Math.round( Math.random() * 100 );
-  } else {
-    data[ i ] = null;
-  }
+	if ( i % 2 === 0 ) {
+		data[ i ] = null;
+	} else {
+		data[ i ] = Math.round( Math.random() * 100 );
+	}
 }
-
 console.log( nanmedian( data ) );
 ```
 
@@ -57,9 +92,12 @@ To run the example code from the top-level application directory,
 $ node ./examples/index.js
 ```
 
+
 ## Notes
 
-If provided an unsorted input `array`, the function is `O( N log(N) )`, where `N` is the `array` length. If the `array` is already sorted in __ascending__ order, the function is `O(N)` as the function still has to perform a linear search to remove all non-numeric elements of the input array.
+If provided an unsorted input `array`, the function is `O( N log(N) )`, where `N` is the `array` length. If the `array` is already sorted in __ascending__ order, the function is `O(N)` as the function needs to make a single linear pass to remove non-numeric values from the `array`.
+
+
 
 ## Tests
 
