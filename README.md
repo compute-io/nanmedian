@@ -22,7 +22,7 @@ var nanmedian = require( 'compute-nanmedian' );
 
 #### nanmedian( arr[, options] )
 
-Computes the median of an `array` ignoring non-numeric values. For primitive unsorted `arrays`,
+Computes the median of an `array` ignoring non-numeric values. For unsorted primitive `arrays`,
 
 ``` javascript
 var unsorted = [ 5, null, 3, 2, 4, null ];
