@@ -33,7 +33,7 @@ var m1 = nanmedian( unsorted );
 
 The function accepts two `options`:
 *	`sorted`: `boolean` flag indicating if the input `array` is sorted in __ascending__ order. Default: `false`.
-*	`accessor`: accessor `function` for accessing `array` values
+*	`accessor`: accessor `function` for accessing values in object `arrays`.
 
 If the input `array` is already sorted in __ascending__ order, set the `sorted` option to `true`.
 
