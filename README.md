@@ -2,7 +2,7 @@ nanmedian
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Computes the median of an array ignoring non-numeric values. 
+> Computes the median of an array ignoring non-numeric values.
 
 
 ## Installation
@@ -17,18 +17,38 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 ## Usage
 
 ``` javascript
-var foo = require( 'compute-nanmedian' );
+var nanmedian = require( 'compute-nanmedian' );
 ```
 
-#### foo( arr )
+#### nanmedian( arr[, sorted] )
 
-What does this function do?
+Computes the median of a numeric `array`. If the input `array` is already sorted in __ascending__ order, set the `sorted` flag to `true`.
 
+``` javascript
+var unsorted = [ 5, null, 3, 2, 4, null ],
+	sorted = [ null, 2, 3, 4, null, 5 ];
+
+var m1 = nanmedian( unsorted );
+// returns 3.5
+
+var m2 = nanmedian( sorted, true );
+// returns 3.5
+```
 
 ## Examples
 
 ``` javascript
-var foo = require( 'compute-nanmedian' );
+var data = new Array( 1001 );
+
+for ( var i = 0; i < data.length; i++ ) {
+  if( i % 2 === 0 ){
+    data[ i ] = Math.round( Math.random() * 100 );
+  } else {
+    data[ i ] = null;
+  }
+}
+
+console.log( nanmedian( data ) );
 ```
 
 To run the example code from the top-level application directory,
@@ -37,6 +57,9 @@ To run the example code from the top-level application directory,
 $ node ./examples/index.js
 ```
 
+## Notes
+
+If provided an unsorted input `array`, the function is `O( N log(N) )`, where `N` is the `array` length. If the `array` is already sorted in __ascending__ order, the function is `O(N)` as the function still has to perform a linear search to remove all non-numeric elements of the input array.
 
 ## Tests
 
@@ -69,7 +92,7 @@ $ make view-cov
 ---
 ## License
 
-[MIT license](http://opensource.org/licenses/MIT). 
+[MIT license](http://opensource.org/licenses/MIT).
 
 
 ## Copyright
