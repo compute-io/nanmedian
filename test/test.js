@@ -63,7 +63,7 @@ describe( 'compute-nanmedian', function tests() {
 		}
 		function badValue( value ) {
 			return function() {
-				nanmedian( [], value );
+				nanmedian( [1,2], value );
 			};
 		}
 	});
@@ -86,7 +86,7 @@ describe( 'compute-nanmedian', function tests() {
 
 		function badValue( value ) {
 			return function() {
-				nanmedian( [], {'sorted': value });
+				nanmedian( [1,2], {'sorted': value });
 			};
 		}
 	});
@@ -109,7 +109,7 @@ describe( 'compute-nanmedian', function tests() {
 
 		function badValue( value ) {
 			return function() {
-				nanmedian( [], {'accessor': value });
+				nanmedian( [1,2], {'accessor': value });
 			};
 		}
 	});

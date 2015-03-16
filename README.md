@@ -95,7 +95,7 @@ $ node ./examples/index.js
 
 ## Notes
 
-If provided an unsorted input `array`, the function is `O( N log(N) )`, where `N` is the `array` length. If the `array` is already sorted in __ascending__ order, the function is `O(N)` as the function needs to make a single linear pass to remove non-numeric values from the `array`.
+If provided an unsorted input `array`, the function is `O( N log(N) )`, where `N` is the `array` length. If the `array` is already sorted in __ascending__ order, the function is `O(N)` as the function still needs to make a single linear pass to extract numeric values from the `array`.
 
 
 
